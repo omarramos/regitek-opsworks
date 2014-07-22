@@ -1,4 +1,4 @@
-name             'opsworks-resque'
+name             'opsworks_resque'
 maintainer       'Pedro Axelrud'
 maintainer_email 'pedroaxl@gmail.com'
 license          'All rights reserved'
