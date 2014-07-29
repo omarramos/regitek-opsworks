@@ -51,7 +51,12 @@ server {
     deny all;
   }
 
+  <% if @application[:rails_env] == 'staging' %>
+  location ~ ^/staging-assets/ {
+  <% else %>
   location ~ ^/assets/ {
+  <% end %>
+  
 
     # A CORS (Cross-Origin Resouce Sharing) config for nginx
     # from http://enable-cors.org/server_nginx.html
