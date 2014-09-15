@@ -4,6 +4,12 @@ upstream unicorn_<%= @application[:domains].first %> {
 
 server {
   listen 80;
+  server_name www.regitek.com;
+  return 301 $scheme://regitek.com$request_uri;
+}
+
+server {
+  listen 80;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
 
   <% if @application[:log_format] %>
