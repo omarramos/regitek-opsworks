@@ -77,10 +77,17 @@ server {
         set $cors "true";
     }
 
+    if ($http_origin ~* (.*\.cloudfront\.net(:[0-9]+)?)) {
+        set $cors "true";
+    }
+
     if ($http_origin ~* (https?://[^/]*\.regitek\.com(:[0-9]+)?)) {
         set $cors "true";
     }
 
+    if ($http_origin ~* (regitek\.com(:[0-9]+)?)) {
+        set $cors "true";
+    }
     # Nginx doesn't support nested If statements, so we use string
     # concatenation to create a flag for compound conditions
 
