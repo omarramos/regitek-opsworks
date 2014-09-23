@@ -2,11 +2,13 @@ upstream unicorn_<%= @application[:domains].first %> {
  server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
 }
 
+<% if @application[:rails_env] == 'production' %>
 server {
   listen 80;
   server_name www.regitek.com;
   return 301 $scheme://regitek.com$request_uri;
 }
+<% end %>
 
 server {
   listen 80;
@@ -31,6 +33,13 @@ server {
   <% end %>
 
   location / {
+
+  <% if @application[:rails_env] == 'production' %>
+    if ($http_x_forwarded_proto != 'https') {
+      rewrite ^ https://$host$request_uri? permanent;
+    }
+  <% end -%>
+
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
